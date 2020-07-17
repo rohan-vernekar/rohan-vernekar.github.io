@@ -1,0 +1,5 @@
+<br />
+<b>Fatal error</b>:  Uncaught Error: Class 'Orbit_Fox_Module_Abstract' not found in /opt/lampp/apps/wordpress/htdocs/wp-content/plugins/themeisle-companion/obfx_modules/uptime-monitor/init.php:17
+Stack trace:
+#0 {main}
+  thrown in <b>/opt/lampp/apps/wordpress/htdocs/wp-content/plugins/themeisle-companion/obfx_modules/uptime-monitor/init.php</b> on line <b>17</b><br />

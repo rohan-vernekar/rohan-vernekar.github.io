@@ -1,0 +1,5 @@
+<br />
+<b>Fatal error</b>:  Uncaught Error: Class 'ThemeIsle\GutenbergBlocks\Base_Block' not found in /opt/lampp/apps/wordpress/htdocs/wp-content/plugins/themeisle-companion/vendor/codeinwp/gutenberg-blocks/inc/render/class-plugin-card-block.php:15
+Stack trace:
+#0 {main}
+  thrown in <b>/opt/lampp/apps/wordpress/htdocs/wp-content/plugins/themeisle-companion/vendor/codeinwp/gutenberg-blocks/inc/render/class-plugin-card-block.php</b> on line <b>15</b><br />
