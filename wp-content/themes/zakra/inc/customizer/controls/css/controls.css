@@ -53,6 +53,10 @@
 	margin-bottom: 0;
 }
 
+.customize-control-zakra-heading h4 i:hover {
+	cursor: pointer;
+}
+
 .customize-control-zakra-background {
 	position: relative;
 }
@@ -540,4 +544,15 @@ span.select2-container.select2-container--default.select2-container--open {
 
 p.upgrade-description {
 	margin-top: 10px;
+}
+
+#accordion-section-zakra-section-separator {
+	display: block !important;
+	margin-top: 20px;
+	border-top: 1px solid #ddd;
+	height: 0;
+}
+
+#accordion-section-zakra-section-separator h3 {
+	display: none;
 }

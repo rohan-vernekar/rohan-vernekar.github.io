@@ -4,7 +4,7 @@ Theme URI: https://zakratheme.com/
 Author: ThemeGrill
 Author URI: https://themegrill.com
 Description: Zakra is flexible, fast, lightweight and modern multipurpose theme that comes with many starter free sites (currently 10+ free starter sites and more will be added later) that you can use to make your site beautiful and professional. Check all the starter sites at https://zakratheme.com/demos. Suitable for personal blog, portfolio, WooCommerce stores, business websites and niche-based sites (like Cafe, Spa, Charity, Yoga, Wedding, Dentist, Education etc) as well. Works with Elementor plus other major page builders so you can create any layout you want. The theme is responsive, Gutenberg compatible, SEO friendly, translation ready and major WordPress plugins compatible.
-Version: 1.4.6
+Version: 1.5.3
 Tested up to: 5.4
 Requires PHP: 5.6
 License: GPLv3 or later
@@ -401,6 +401,10 @@ img {
 figure {
 	margin: 1em 0;
 	/* Extra wide images within figure tags don't overflow the content area. */
+}
+
+iframe {
+	max-width: 100%;
 }
 
 /*=============================================
@@ -830,6 +834,31 @@ table td,
 	display: none;
 }
 
+.tg-menu-item-search {
+	position: relative;
+	cursor: pointer;
+}
+
+.tg-menu-item-search .search-form {
+	position: absolute;
+	top: 43px;
+	right: 0;
+	width: 200px;
+	display: none;
+	z-index: 999;
+}
+
+.tg-menu-item-search .search-form label {
+	margin-bottom: 0;
+	width: 100%;
+}
+
+.tg-menu-item-search.show-search .search-form {
+	display: -webkit-box;
+	display: -ms-flexbox;
+	display: flex;
+}
+
 /*=============================================
 =                    Links                    =
 =============================================*/
@@ -848,7 +877,18 @@ a:active {
 	outline: 0;
 }
 
+.entry-content a {
+	color: #269bd1;
+}
+
+.entry-content a:hover, .entry-content a:focus {
+	color: #1e7ba6;
+}
+
 .tg-primary-menu {
+	-webkit-box-flex: 1;
+	-ms-flex: 1;
+	flex: 1;
 	border-bottom: 0 solid #e9ecef;
 	margin-left: auto;
 }
@@ -859,7 +899,7 @@ a:active {
 	list-style-type: none;
 }
 
-.tg-primary-menu > div ul li.current_page_item > a, .tg-primary-menu > div ul li.current-menu-item > a {
+.tg-primary-menu > div ul li.current_page_ancestor > a, .tg-primary-menu > div ul li.current-menu-ancestor > a, .tg-primary-menu > div ul li.current_page_item > a, .tg-primary-menu > div ul li.current-menu-item > a {
 	color: #269bd1;
 }
 
@@ -878,8 +918,10 @@ a:active {
 	content: "\f101";
 }
 
-.tg-primary-menu > div ul li.menu-item-has-children:hover > ul, .tg-primary-menu > div ul li.page_item_has_children:hover > ul {
-	display: block;
+.tg-primary-menu > div ul li.menu-item-has-children:hover > ul, .tg-primary-menu > div ul li.menu-item-has-children:focus > ul, .tg-primary-menu > div ul li.page_item_has_children:hover > ul, .tg-primary-menu > div ul li.page_item_has_children:focus > ul {
+	height: auto;
+	overflow: initial;
+	opacity: 1;
 }
 
 .tg-primary-menu > div ul li a {
@@ -889,13 +931,23 @@ a:active {
 	color: #16181a;
 }
 
+.tg-primary-menu > div ul li.focus > ul {
+	height: auto;
+	overflow: initial;
+	opacity: 1;
+}
+
 .tg-primary-menu > div ul li ul {
-	display: none;
+	position: absolute;
+	left: 0;
+	height: 0;
+	opacity: 0;
+	overflow: hidden;
+	display: block;
 	top: 100%;
 	border: 1px solid #e9ecef;
 	width: 240px;
 	background: #fff;
-	position: absolute;
 	z-index: 999;
 }
 
@@ -926,30 +978,6 @@ a:active {
 .tg-primary-menu > div ul li ul li ul {
 	top: -1px;
 	left: 100%;
-}
-
-.tg-primary-menu > div ul li.tg-menu-item-search {
-	position: relative;
-	cursor: pointer;
-}
-
-.tg-primary-menu > div ul li.tg-menu-item-search .search-form {
-	position: absolute;
-	top: 43px;
-	right: 0;
-	width: 200px;
-	display: none;
-	z-index: 999;
-}
-
-.tg-primary-menu > div ul li.tg-menu-item-search .search-form label {
-	margin-bottom: 0;
-}
-
-.tg-primary-menu > div ul li.tg-menu-item-search.show-search .search-form {
-	display: -webkit-box;
-	display: -ms-flexbox;
-	display: flex;
 }
 
 .tg-primary-menu > div > ul {
@@ -983,27 +1011,27 @@ a:active {
 	left: auto;
 }
 
-.tg-primary-menu.tg-primary-menu--style-underline > div > ul > li.current_page_item > a, .tg-primary-menu.tg-primary-menu--style-underline > div > ul > li.current-menu-item > a, .tg-primary-menu.tg-primary-menu--style-left-border > div > ul > li.current_page_item > a, .tg-primary-menu.tg-primary-menu--style-left-border > div > ul > li.current-menu-item > a, .tg-primary-menu.tg-primary-menu--style-right-border > div > ul > li.current_page_item > a, .tg-primary-menu.tg-primary-menu--style-right-border > div > ul > li.current-menu-item > a {
+.tg-primary-menu.tg-primary-menu--style-underline > div > ul > li.current_page_ancestor > a, .tg-primary-menu.tg-primary-menu--style-underline > div > ul > li.current-menu-ancestor > a, .tg-primary-menu.tg-primary-menu--style-underline > div > ul > li.current_page_item > a, .tg-primary-menu.tg-primary-menu--style-underline > div > ul > li.current-menu-item > a, .tg-primary-menu.tg-primary-menu--style-left-border > div > ul > li.current_page_ancestor > a, .tg-primary-menu.tg-primary-menu--style-left-border > div > ul > li.current-menu-ancestor > a, .tg-primary-menu.tg-primary-menu--style-left-border > div > ul > li.current_page_item > a, .tg-primary-menu.tg-primary-menu--style-left-border > div > ul > li.current-menu-item > a, .tg-primary-menu.tg-primary-menu--style-right-border > div > ul > li.current_page_ancestor > a, .tg-primary-menu.tg-primary-menu--style-right-border > div > ul > li.current-menu-ancestor > a, .tg-primary-menu.tg-primary-menu--style-right-border > div > ul > li.current_page_item > a, .tg-primary-menu.tg-primary-menu--style-right-border > div > ul > li.current-menu-item > a {
 	position: relative;
 }
 
-.tg-primary-menu.tg-primary-menu--style-underline > div > ul > li.current_page_item > a::before, .tg-primary-menu.tg-primary-menu--style-underline > div > ul > li.current-menu-item > a::before, .tg-primary-menu.tg-primary-menu--style-left-border > div > ul > li.current_page_item > a::before, .tg-primary-menu.tg-primary-menu--style-left-border > div > ul > li.current-menu-item > a::before, .tg-primary-menu.tg-primary-menu--style-right-border > div > ul > li.current_page_item > a::before, .tg-primary-menu.tg-primary-menu--style-right-border > div > ul > li.current-menu-item > a::before {
+.tg-primary-menu.tg-primary-menu--style-underline > div > ul > li.current_page_ancestor > a::before, .tg-primary-menu.tg-primary-menu--style-underline > div > ul > li.current-menu-ancestor > a::before, .tg-primary-menu.tg-primary-menu--style-underline > div > ul > li.current_page_item > a::before, .tg-primary-menu.tg-primary-menu--style-underline > div > ul > li.current-menu-item > a::before, .tg-primary-menu.tg-primary-menu--style-left-border > div > ul > li.current_page_ancestor > a::before, .tg-primary-menu.tg-primary-menu--style-left-border > div > ul > li.current-menu-ancestor > a::before, .tg-primary-menu.tg-primary-menu--style-left-border > div > ul > li.current_page_item > a::before, .tg-primary-menu.tg-primary-menu--style-left-border > div > ul > li.current-menu-item > a::before, .tg-primary-menu.tg-primary-menu--style-right-border > div > ul > li.current_page_ancestor > a::before, .tg-primary-menu.tg-primary-menu--style-right-border > div > ul > li.current-menu-ancestor > a::before, .tg-primary-menu.tg-primary-menu--style-right-border > div > ul > li.current_page_item > a::before, .tg-primary-menu.tg-primary-menu--style-right-border > div > ul > li.current-menu-item > a::before {
 	content: "";
 	position: absolute;
 	background-color: #269bd1;
 }
 
-.tg-primary-menu.tg-primary-menu--style-underline > div > ul > li.current_page_item > a, .tg-primary-menu.tg-primary-menu--style-underline > div > ul > li.current-menu-item > a {
+.tg-primary-menu.tg-primary-menu--style-underline > div > ul > li.current_page_ancestor > a, .tg-primary-menu.tg-primary-menu--style-underline > div > ul > li.current-menu-ancestor > a, .tg-primary-menu.tg-primary-menu--style-underline > div > ul > li.current_page_item > a, .tg-primary-menu.tg-primary-menu--style-underline > div > ul > li.current-menu-item > a {
 	position: relative;
 }
 
-.tg-primary-menu.tg-primary-menu--style-underline > div > ul > li.current_page_item > a::before, .tg-primary-menu.tg-primary-menu--style-underline > div > ul > li.current-menu-item > a::before {
+.tg-primary-menu.tg-primary-menu--style-underline > div > ul > li.current_page_ancestor > a::before, .tg-primary-menu.tg-primary-menu--style-underline > div > ul > li.current-menu-ancestor > a::before, .tg-primary-menu.tg-primary-menu--style-underline > div > ul > li.current_page_item > a::before, .tg-primary-menu.tg-primary-menu--style-underline > div > ul > li.current-menu-item > a::before {
 	height: 2px;
 	width: 100%;
 	bottom: 0;
 }
 
-.tg-primary-menu.tg-primary-menu--style-left-border > div > ul > li.current_page_item > a::before, .tg-primary-menu.tg-primary-menu--style-left-border > div > ul > li.current-menu-item > a::before {
+.tg-primary-menu.tg-primary-menu--style-left-border > div > ul > li.current_page_ancestor > a::before, .tg-primary-menu.tg-primary-menu--style-left-border > div > ul > li.current-menu-ancestor > a::before, .tg-primary-menu.tg-primary-menu--style-left-border > div > ul > li.current_page_item > a::before, .tg-primary-menu.tg-primary-menu--style-left-border > div > ul > li.current-menu-item > a::before {
 	width: 2px;
 	height: 12px;
 	top: 50%;
@@ -1012,7 +1040,7 @@ a:active {
 	transform: translateY(-50%);
 }
 
-.tg-primary-menu.tg-primary-menu--style-right-border > div > ul > li.current_page_item > a::before, .tg-primary-menu.tg-primary-menu--style-right-border > div > ul > li.current-menu-item > a::before {
+.tg-primary-menu.tg-primary-menu--style-right-border > div > ul > li.current_page_ancestor > a::before, .tg-primary-menu.tg-primary-menu--style-right-border > div > ul > li.current-menu-ancestor > a::before, .tg-primary-menu.tg-primary-menu--style-right-border > div > ul > li.current_page_item > a::before, .tg-primary-menu.tg-primary-menu--style-right-border > div > ul > li.current-menu-item > a::before {
 	width: 2px;
 	height: 12px;
 	top: 50%;
@@ -1094,7 +1122,8 @@ a:active {
 
 /* Mobile navigation */
 .tg-mobile-navigation {
-	display: none;
+	visibility: hidden;
+	opacity: 0;
 	position: fixed;
 	top: 0;
 	bottom: 0;
@@ -1104,16 +1133,16 @@ a:active {
 	width: 300px;
 	-webkit-transform: translateX(-100%);
 	transform: translateX(-100%);
-	-webkit-transition: 0.35s -webkit-transform ease;
-	transition: 0.35s -webkit-transform ease;
-	transition: 0.35s transform ease;
-	transition: 0.35s transform ease, 0.35s -webkit-transform ease;
+	-webkit-transition: 0.35s visibility ease, 0.35s opacity ease, 0.35s -webkit-transform ease;
+	transition: 0.35s visibility ease, 0.35s opacity ease, 0.35s -webkit-transform ease;
+	transition: 0.35s transform ease, 0.35s visibility ease, 0.35s opacity ease;
+	transition: 0.35s transform ease, 0.35s visibility ease, 0.35s opacity ease, 0.35s -webkit-transform ease;
 	padding: 50px 20px 20px;
 	overflow-y: scroll;
 	-webkit-overflow-scrolling: touch;
 }
 
-.tg-mobile-navigation > div ul li.current_page_item > a, .tg-mobile-navigation > div ul li.current-menu-item > a {
+.tg-mobile-navigation > div ul li.current_page_ancestor > a, .tg-mobile-navigation > div ul li.current-menu-ancestor > a, .tg-mobile-navigation > div ul li.current_page_item > a, .tg-mobile-navigation > div ul li.current-menu-item > a {
 	color: #269bd1;
 }
 
@@ -1123,6 +1152,10 @@ a:active {
 }
 
 .tg-mobile-navigation .tg-mobile-navigation-close {
+	background-color: unset;
+	border: unset;
+	padding: unset;
+	color: unset;
 	cursor: pointer;
 	position: absolute;
 	right: 20px;
@@ -1159,6 +1192,9 @@ a:active {
 	top: 0;
 	display: block;
 	padding: 0.5em 0.8em;
+	background: unset;
+	color: unset;
+	border: unset;
 }
 
 .tg-mobile-navigation li.page_item_has_children .tg-submenu-toggle::after, .tg-mobile-navigation li.menu-item-has-children .tg-submenu-toggle::after {
@@ -1170,6 +1206,7 @@ a:active {
 .tg-mobile-navigation li.page_item_has_children ul, .tg-mobile-navigation li.menu-item-has-children ul {
 	padding-left: 15px;
 	max-height: 0;
+	visibility: hidden;
 	-webkit-transition: all 0.5s ease-out;
 	transition: all 0.5s ease-out;
 	overflow: hidden;
@@ -1181,6 +1218,7 @@ a:active {
 
 .tg-mobile-navigation li.page_item_has_children.submenu--show > ul, .tg-mobile-navigation li.menu-item-has-children.submenu--show > ul {
 	max-height: 500px;
+	visibility: visible;
 	overflow-y: scroll;
 }
 
@@ -1189,6 +1227,8 @@ a:active {
 }
 
 .tg-mobile-navigation.tg-mobile-navigation--opened {
+	visibility: visible;
+	opacity: 1;
 	-webkit-transform: translateX(0);
 	transform: translateX(0);
 	-webkit-box-shadow: 0 0 50px rgba(0, 0, 0, 0.1);
@@ -1198,6 +1238,8 @@ a:active {
 .tg-mobile-navigation a {
 	display: block;
 	padding: 0.5em;
+	padding-right: 30px;
+	word-break: break-all;
 }
 
 .tg-mobile-navigation li.tg-menu-item-search {
@@ -1205,6 +1247,12 @@ a:active {
 }
 
 .tg-mobile-navigation li.tg-menu-item-search label {
+	display: block;
+}
+
+.tg-mobile-navigation li.tg-menu-item-search .search-form {
+	position: unset;
+	width: 100%;
 	display: block;
 }
 
@@ -1507,14 +1555,14 @@ select {
 	width: 50%;
 }
 
+.tg-site-header-top .tg-header-top-right-content {
+	text-align: right;
+}
+
 .tg-site-header-top .tg-header-top-right-content ul {
 	-webkit-box-pack: end;
 	-ms-flex-pack: end;
 	justify-content: flex-end;
-}
-
-.tg-site-header-top .tg-header-top-right-content p {
-	text-align: right;
 }
 
 .tg-site-header-top p {
@@ -1524,11 +1572,6 @@ select {
 .tg-site-header {
 	border-bottom: 1px solid #e9ecef;
 	background-color: #fff;
-}
-
-.tg-site-header.tg-site-header--center {
-	/* Site branding */
-	/* Menu primary */
 }
 
 .tg-site-header.tg-site-header--center .tg-site-header-bottom .tg-container--flex {
@@ -1552,7 +1595,6 @@ select {
 
 .tg-site-header.tg-site-header--center .tg-primary-menu {
 	margin-left: initial;
-	width: 100%;
 	display: -webkit-box;
 	display: -ms-flexbox;
 	display: flex;
@@ -1604,6 +1646,18 @@ select {
 .tg-site-header-bottom {
 	padding-top: 1em;
 	padding-bottom: 1em;
+}
+
+.tg-site-header-bottom .tg-block--two {
+	display: -webkit-box;
+	display: -ms-flexbox;
+	display: flex;
+	-webkit-box-align: center;
+	-ms-flex-align: center;
+	align-items: center;
+	-webkit-box-flex: 1;
+	-ms-flex: 1;
+	flex: 1;
 }
 
 .tg-header-transparent-wrapper {
@@ -2113,6 +2167,33 @@ select {
 	display: block;
 }
 
+.tg-oembed-container {
+	position: relative;
+	padding-top: 56.25%;
+	height: 0;
+	overflow: hidden;
+	max-width: 100%;
+	height: auto;
+}
+
+.tg-oembed-container iframe,
+.tg-oembed-container object,
+.tg-oembed-container embed {
+	position: absolute;
+	top: 0;
+	left: 0;
+	width: 100%;
+	height: 100%;
+}
+
+body .tg-oembed-container * {
+	position: absolute;
+	top: 0;
+	left: 0;
+	width: 100%;
+	height: 100%;
+}
+
 /*=============================================
 =            footer            =
 =============================================*/
@@ -2308,6 +2389,12 @@ select {
 	display: block;
 }
 
+@media (min-width: 769px) {
+	.tg-site-header--left .tg-block--two {
+		margin-left: 4em;
+	}
+}
+
 /*=============================================
 =            Desktop Devices          =
 =============================================*/
@@ -2365,8 +2452,10 @@ select {
 		display: -ms-flexbox;
 		display: flex;
 	}
-	.tg-mobile-navigation {
-		display: block;
+	.tg-site-header--left .tg-block--two {
+		-webkit-box-pack: end;
+		-ms-flex-pack: end;
+		justify-content: flex-end;
 	}
 	.tg-menu-item-search {
 		margin-top: 0.5em;
@@ -2462,6 +2551,13 @@ select {
 .tg-header-action-list .tg-header-action__item.tg-mobile-toggle {
 	margin-left: 10px;
 	padding: 0.5em 0.8em;
+}
+
+.tg-header-action-list .tg-header-action__item.tg-mobile-toggle > button {
+	background: unset;
+	color: unset;
+	border: unset;
+	padding: unset;
 }
 
 .tg-site-header--center .tg-header-action-list .tg-header-action__item.tg-mobile-toggle, .tg-site-header--right .tg-header-action-list .tg-header-action__item.tg-mobile-toggle {

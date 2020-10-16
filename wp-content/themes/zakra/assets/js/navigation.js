@@ -7,6 +7,67 @@
  * @package Zakra
  */
 
+var ZakraNavHelper = {
+
+	// Returns first children of a node.
+	getChildNodes : function ( node ) {
+		var children = [], child;
+
+		for ( child in node.childNodes ) {
+			if ( node.childNodes.hasOwnProperty( child ) && 1 === node.childNodes[child].nodeType ) {
+				children.push( node.childNodes[child] );
+			}
+		}
+
+		return children;
+	},
+
+	offset: function ( el ) {
+		var rect       = el.getBoundingClientRect(),
+		    scrollLeft = window.pageXOffset || document.documentElement.scrollLeft,
+		    scrollTop  = window.pageYOffset || document.documentElement.scrollTop;
+
+		return {top: rect.top + scrollTop, left: rect.left + scrollLeft}
+	},
+
+
+	// Calculate the dimension of an element with margin, padding and content.
+	dimension : function ( el ) {
+		return parseInt( document.defaultView.getComputedStyle( el, '' ).getPropertyValue( 'width' ) ) + parseInt( document.defaultView.getComputedStyle( el, '' ).getPropertyValue( 'margin-left' ) ) + parseInt( document.defaultView.getComputedStyle( el, '' ).getPropertyValue( 'padding-left' ) ) + parseInt( document.defaultView.getComputedStyle( el, '' ).getPropertyValue( 'padding-right' ) ) + parseInt( document.defaultView.getComputedStyle( el, '' ).getPropertyValue( 'margin-right' ) );
+	},
+
+	getOverflowItems : function ( navLi ) {
+
+
+		navigation.style.flex = '0 0 ' + navUlTempWidth + 'px';
+
+		var extraLi = [];
+
+		for ( var liCount = 0; liCount < navLi.length; liCount++ ) {
+			var initialPos, li, posTop;
+
+			li     = navLi[liCount];
+			posTop = this.offset( li ).top;
+
+			if ( 0 === liCount ) {
+				initialPos = posTop;
+			}
+
+			if ( posTop > initialPos ) {
+				if ( ! li.classList.contains( 'tg-menu-item-search' ) && ! li.classList.contains( 'tg-menu-item-cart' ) &&
+					! li.classList.contains( 'tg-header-button-wrap' ) && ! li.classList.contains( 'tg-menu-extras-wrap' )
+				) {
+					extraLi.push( li );
+				}
+			}
+		}
+
+		return extraLi;
+	}
+};
+
+window.zakraNavHelper = ZakraNavHelper;
+
 (
 	function () {
 		var container, menu, links, i, len;
@@ -41,11 +102,11 @@
 			var self = this;
 
 			// Move up through the ancestors of the current link until we hit .nav-menu.
-			while ( - 1 === self.className.indexOf( 'nav-menu' ) ) {
+			while ( -1 === self.className.indexOf( 'nav-menu' ) ) {
 
 				// On li elements toggle the class .focus.
 				if ( 'li' === self.tagName.toLowerCase() ) {
-					if ( - 1 !== self.className.indexOf( 'focus' ) ) {
+					if ( -1 !== self.className.indexOf( 'focus' ) ) {
 						self.className = self.className.replace( ' focus', '' );
 					} else {
 						self.className += ' focus';
@@ -62,12 +123,12 @@
 		(
 			function ( container ) {
 				var touchStartFn, i,
-				    parentLink = container.querySelectorAll( '.menu-item-has-children > a, .page_item_has_children > a' );
+					parentLink = container.querySelectorAll( '.menu-item-has-children > a, .page_item_has_children > a' );
 
 				if ( 'ontouchstart' in window ) {
 					touchStartFn = function ( e ) {
 						var i,
-						    menuItem = this.parentNode;
+							menuItem = this.parentNode;
 
 						if ( ! menuItem.classList.contains( 'focus' ) ) {
 							e.preventDefault();
@@ -103,7 +164,7 @@
 		var i;
 
 		var elWithChildren = document.querySelectorAll( '.tg-primary-menu li.menu-item-has-children, .tg-primary-menu li.page_item_has_children' ),
-		    elCount        = elWithChildren.length;
+			elCount        = elWithChildren.length;
 
 		/**
 		 * @see https://stackoverflow.com/questions/123999/how-can-i-tell-if-a-dom-element-is-visible-in-the-current-viewport/7557433#7557433
@@ -112,8 +173,10 @@
 			var rect = el.getBoundingClientRect();
 
 			return (
-				rect.left >= 0 &&
-				rect.right <= (	window.innerWidth || document.documentElement.clientWidth )
+				0 <= rect.left &&
+				rect.right <= (
+					window.innerWidth || document.documentElement.clientWidth
+				)
 			);
 		}
 
@@ -122,11 +185,12 @@
 
 			// On mouse enter.
 			elWithChildren[i].addEventListener( 'mouseenter', function ( ev ) {
-				var li = ev.currentTarget;
+				var li = ev.currentTarget,
+					subMenu;
 
 				if ( li ) {
 
-					var subMenu = li.querySelectorAll( '.sub-menu, .children' )[0];
+					subMenu = li.querySelectorAll( '.sub-menu, .children' )[0];
 
 					if ( subMenu ) {
 						if ( ! isElementInViewport( subMenu ) ) {
@@ -138,10 +202,11 @@
 
 			// On mouse leave.
 			elWithChildren[i].addEventListener( 'mouseleave', function ( ev ) {
-				var li = ev.currentTarget;
+				var li = ev.currentTarget,
+					sub;
 
 				if ( li ) {
-					var sub = li.querySelectorAll( '.sub-menu, .children' )[0];
+					sub = li.querySelectorAll( '.sub-menu, .children' )[0];
 
 					sub.classList.remove( 'tg-edge' );
 
@@ -162,114 +227,74 @@
 	function () {
 
 		// Get required elements.
-		var header, mainWrapper, branding, navigation, mainWidth, brandWidth, navWidth, isExtra, more;
+		var more, search, cart, button, button2, searchWidth, cartWidth, buttonWidth, moreWidth, navUl, navLi,
+			navLiWidth, extraWrap, navWrapWidth, overflowItems;
 
-		navigation = document.getElementById('site-navigation');
+		navigation = document.getElementById( 'site-navigation' );
 
+		// Return if no navigation markup.
 		if ( null === navigation ) {
 			return;
 		}
 
-		header      = document.querySelector('.tg-site-header');
-		mainWrapper = header.querySelector('.tg-header-container');
-		branding    = header.querySelector('.site-branding');
-		mainWidth   = mainWrapper.offsetWidth;
-		brandWidth  = ( null !== branding ) ? branding.offsetWidth : 0;
-		navWidth    = ( null !== navigation ) ? navigation.offsetWidth : 0;
-		isExtra     = (brandWidth + navWidth) > mainWidth;
-		more        = navigation.getElementsByClassName('tg-menu-extras-wrap')[0];
-
-		// Return if no excess menu items.
+		// Return if `Keep Menu Items on One Line` customizer option is not enabled
 		if ( ! navigation.classList.contains( 'tg-extra-menus' ) ) {
 			return;
 		}
 
-		// Calculate the dimension of an element with margin, padding and content.
-		var dimension = function ( el ) {
-			return parseInt( document.defaultView.getComputedStyle( el, '' ).getPropertyValue( 'width' ) ) + parseInt( document.defaultView.getComputedStyle( el, '' ).getPropertyValue( 'margin-left' ) ) + parseInt( document.defaultView.getComputedStyle( el, '' ).getPropertyValue( 'padding-left' ) ) + parseInt( document.defaultView.getComputedStyle( el, '' ).getPropertyValue( 'padding-right' ) ) + parseInt( document.defaultView.getComputedStyle( el, '' ).getPropertyValue( 'margin-right' ) );
-		};
+		// Extra ellipsis icon added via PHP.
+		more      = navigation.getElementsByClassName( 'tg-menu-extras-wrap' )[0];
 
-		if ( ! isExtra ) {
-			more.parentNode.removeChild( more );
-		} else {
-			var widthToBe, search, cart, button, button2, searchWidth, cartWidth, buttonWidth, moreWidth;
+		// Ul to append extra menu items.
+		extraWrap = document.getElementById( 'tg-menu-extras' );
 
-			widthToBe   = mainWidth - brandWidth;
-			search      = navigation.getElementsByClassName( 'tg-menu-item-search' )[0];
-			cart        = navigation.getElementsByClassName( 'tg-menu-item-cart' )[0];
-			button      = navigation.getElementsByClassName( 'tg-header-button-wrap' )[0];
-			button2     = navigation.getElementsByClassName( 'tg-header-button-wrap' )[1];
-			searchWidth = search ? dimension( search ) : 0;
-			cartWidth   = cart ? dimension( cart ) : 0;
-			buttonWidth = button ? dimension( button ) : 0;
-			buttonWidth += button2 ? dimension( button2 ) : 0;
-			moreWidth   = more ? dimension( more ) : 0;
-			newNavWidth = widthToBe - ( searchWidth + cartWidth + buttonWidth + moreWidth );
-
-			navigation.style.visibility = 'none';
-			navigation.style.width      = newNavWidth + 'px';
-
-			// Returns first children of a node.
-			function getChildNodes( node ) {
-				var children = [];
-
-				for ( var child in node.childNodes ) {
-					if ( node.childNodes.hasOwnProperty( child ) && 1 === node.childNodes[child].nodeType ) {
-						children.push( node.childNodes[child] );
-					}
-				}
-				return children;
-			}
-
-			var navUl = navigation.getElementsByClassName( 'nav-menu' )[0],
-			    navLi = getChildNodes( navUl ); // Get lis.
-
-			function offset( el ) {
-				var rect       = el.getBoundingClientRect(),
-				    scrollLeft = window.pageXOffset || document.documentElement.scrollLeft,
-				    scrollTop  = window.pageYOffset || document.documentElement.scrollTop;
-
-				return {top: rect.top + scrollTop, left: rect.left + scrollLeft}
-			}
-
-			var extraLi = [];
-
-			for ( var liCount = 0; liCount < navLi.length; liCount ++ ) {
-				var initialPos, li, posTop;
-
-				li     = navLi[liCount];
-				posTop = offset( li ).top;
-
-				if ( 0 === liCount ) {
-					initialPos = posTop;
-				}
-
-				if ( posTop > initialPos ) {
-					if ( ! li.classList.contains( 'tg-menu-item-search' ) && ! li.classList.contains( 'tg-menu-item-cart' ) && ! li.classList.contains( 'tg-header-button-wrap' ) && ! li.classList.contains( 'tg-menu-extras-wrap' ) ) {
-						extraLi.push( li );
-					}
-				}
-			}
-
-			var newNavWidth = newNavWidth + ( searchWidth + cartWidth + buttonWidth + moreWidth ) - 2,
-			    extraWrap   = document.getElementById( 'tg-menu-extras' );
-
-			if ( header.classList.contains( 'tg-site-header--left' ) || header.classList.contains( 'tg-site-header--right' ) ) {
-				navigation.style.width = newNavWidth + 'px';
-			} else {
-				navigation.style.width = '100%';
-			}
-
-			if ( null !== extraWrap ) {
-				extraLi.forEach(
-					function ( item ) {
-						extraWrap.appendChild( item );
-					}
-				);
-			}
-
+		// No primary menu assigned.
+		if ( null === extraWrap ) {
+			return;
 		}
 
+		navUl = navigation.getElementsByClassName( 'nav-menu' )[0];
+
+		navLi = ZakraNavHelper.getChildNodes( navUl );
+
+		navWrapWidth = navigation.offsetWidth;
+
+		search      = navigation.getElementsByClassName( 'tg-menu-item-search' )[0];
+		cart        = navigation.getElementsByClassName( 'tg-menu-item-cart' )[0];
+		button      = navigation.getElementsByClassName( 'tg-header-button-wrap' )[0];
+		button2     = navigation.getElementsByClassName( 'tg-header-button-wrap' )[1];
+
+		searchWidth = search ? ZakraNavHelper.dimension( search ) : 0;
+		cartWidth   = cart ? ZakraNavHelper.dimension( cart ) : 0;
+		buttonWidth = button ? ZakraNavHelper.dimension( button ) : 0;
+		buttonWidth += button2 ? ZakraNavHelper.dimension( button2 ) : 0;
+		moreWidth   = more ? ZakraNavHelper.dimension( more ) : 0;
+
+		navUlTempWidth = navWrapWidth - ( searchWidth + cartWidth + buttonWidth + moreWidth );
+
+		navLiWidth = 0;
+
+		navLi.forEach( function ( menuItem, index  ) {
+			navLiWidth += ZakraNavHelper.dimension( menuItem );
+		} );
+
+		// If overflow.
+		if ( navLiWidth > navWrapWidth ) {
+
+			overflowItems = ZakraNavHelper.getOverflowItems( navLi );
+
+			overflowItems.forEach( function ( item ) {
+				extraWrap.appendChild( item );
+			});
+
+		} else {
+
+			// Remove ellipsis icon for more.
+			more.parentNode.removeChild( more );
+		}
+
+		console.log( 'flex here' );
+		navigation.style.flex = '';
 	}()
 );
 
@@ -279,9 +304,9 @@
 (
 	function () {
 		var mobMenuItems      = document.querySelectorAll( '#mobile-navigation li a' ),
-		    toggleButton      = document.querySelector( '.tg-mobile-toggle' ),
-		    mobMenuItemsCount = mobMenuItems.length,
-		    item;
+			toggleButton      = document.querySelector( '.tg-mobile-toggle' ),
+			mobMenuItemsCount = mobMenuItems.length,
+			item;
 
 		for ( var i = 0; i < mobMenuItemsCount; i++ ) {
 			item = mobMenuItems[i];
@@ -295,5 +320,4 @@
 		}
 	}()
 );
-
 

@@ -1,11 +1,11 @@
 === Zakra ===
 Contributors: themegrill
 Author: ThemeGrill
-Version: 1.4.6
+Version: 1.5.3
 Tested up to: 5.4
 Requires PHP: 5.6
 Requires at least: 4.7
-Stable tag: 1.4.6
+Stable tag: 1.5.3
 License: GPLv3 or later
 License URI: https://www.gnu.org/licenses/gpl-3.0.en.html
 Tags: one-column, two-columns, right-sidebar, grid-layout, custom-background, custom-colors, custom-menu, custom-logo, featured-images, footer-widgets, full-width-template, theme-options, threaded-comments, translation-ready, blog, rtl-language-support
@@ -60,7 +60,43 @@ License: GNU GPL, Version 3, https://www.gnu.org/licenses/gpl-3.0.html
 Unless otherwise specified, all the theme files, scripts and images including the screenshot image are licensed under [GNU GPL] (http://www.gnu.org/licenses/gpl-3.0.txt), version 3 or later.
 
 == Changelog ==
-= Version 1.4.6 -2020-07-07 =
+= Version 1.5.3 - 2020-10-13 =
+* Fix         - Mobile menu toggle button not working on IE11 or lower browsers.
+* Enhancement - Rearranged customizer sections and options.
+
+= Version 1.5.2 - 2020-09-25 =
+* Fix   - Dropdown icon overlapping with text on mobile menu.
+* Tweak - Loop focus on search icon and input field while using keyboard navigation.
+
+= Version 1.5.1 - 2020-09-21 =
+* Fix         - Search form not displayed in mobile menu.
+* Enhancement - Accessibility menu navigation.
+
+= Version 1.5.0 - 2020-09-01 =
+* Enhancement - Highlight parent menu item when child menu item is active.
+* Fix         - Header top right content alignment issue.
+* Enhancement - Introduced `zakra_header_search` and `zakra_search_icon` filters.
+
+= Version 1.4.9.1 - 2020-08-18 =
+* Fix - PHP access level error.
+
+= Version 1.4.9 - 2020-08-18 =
+* Fix         - Alpha color localization for WordPress `5.5`.
+* Fix         - Primary menu in mobile appearing while disabling from customizer.
+* Fix         - CPT archive page title string.
+* Enhancement - Admin dashboard page.
+
+= Version 1.4.8 - 2020-08-07 =
+* Feature - Retina logo option.
+* Fix     - Links not highlighting on WP editor.
+* Fix     - Embedded video not responsive.
+* Fix     - Header border bottom color not overriding base border color.
+
+= Version 1.4.7 - 2020-07-18 =
+* Fix - Dropdown menu not accessible in touch devices.
+* Fix - Default Link color values.
+
+= Version 1.4.6 - 2020-07-07 =
 * Added - Zakra Agency (https://zakrademos.com/agency/) - WordPress Template Site for Starting Online Presence for All Kind of Websites.
 * Tweak - Update screenshot image.
 * Fix   - Custom background color option affecting content area of boxed layout.

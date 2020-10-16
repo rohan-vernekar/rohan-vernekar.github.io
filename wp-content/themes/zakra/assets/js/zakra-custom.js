@@ -1,67 +1,142 @@
 /**
+ * Zakra Pro frontend JS file.
+ *
+ * @package Zakra_Pro
+ * @since   1.4.7
+ */
+
+var ZakraFrontend = {
+	toggleMenu: function( handleEl, targetEl, overlayWrapper, closeButton, toggleButton ) {
+
+		handleEl.addEventListener(
+			'click',
+			function() {
+				this.classList.toggle( 'tg-mobile-toggle--opened' );
+				targetEl.classList.toggle( 'tg-mobile-navigation--opened' );
+
+				if ( overlayWrapper ) {
+					overlayWrapper.classList.toggle( 'overlay-show' );
+				}
+
+				// Mobile menu close button.
+				if ( ! targetEl.getElementsByClassName( 'tg-mobile-navigation-close' ).length ) {
+
+					// Insert the close icon as first child of menu.
+					targetEl.insertBefore( closeButton, targetEl.childNodes[0] );
+				}
+			}
+		);
+
+		// Close menu when clicked outside.
+		if ( overlayWrapper ) {
+			overlayWrapper.addEventListener(
+				'click',
+				function() {
+					this.classList.toggle( 'overlay-show' );
+					toggleButton.classList.toggle( 'tg-mobile-toggle--opened' );
+					targetEl.classList.toggle( 'tg-mobile-navigation--opened' );
+				}
+			);
+		}
+
+	}
+};
+
+window.zakraFrontend = ZakraFrontend;
+
+/**
  * Only run scrips when the page is fully loaded.
  */
 document.addEventListener(
 	'DOMContentLoaded',
-	function () {
+	function() {
 		function mobileNavigation() {
 			var menu           = document.getElementById( 'mobile-navigation' ),
-			    toggleButton   = document.querySelector( '.tg-mobile-toggle' ),
-			    overlayWrapper = document.querySelector( '.tg-overlay-wrapper' ),
-			    listItems,
-			    listItem,
-			    subMenuButton,
-			    subMenuToggle,
-			    closeButton,
-			    i;
+				toggleButton   = document.querySelector( '.tg-mobile-toggle' ),
+				overlayWrapper = document.querySelector( '.tg-overlay-wrapper' ),
+				adminBar       = document.getElementById( 'wpadminbar' ),
+				adminBarHeight,
+				listItems,
+				listItem,
+				subMenuButton,
+				subMenuToggle,
+				closeButton,
+				menuStyle,
+				menuPaddingTop,
+				i,
+				focusableSelectors,
+				focusableEl,
+				firstEl,
+				lastEl;
+
+			// Create close icon element.
+			closeButton = document.createElement( 'button' );
+			closeButton.classList.add( 'tg-mobile-navigation-close' );
+			closeButton.setAttribute( 'aria-label', 'Close Button' );
 
 			if ( menu ) {
 				listItems = menu.querySelectorAll(
 					'li.page_item_has_children, li.menu-item-has-children'
 				);
-			}
 
-			// Create close icon element.
-			closeButton = document.createElement( 'span' );
-			closeButton.classList.add( 'tg-mobile-navigation-close' );
+				if ( document.body.contains( adminBar ) ) {
+					adminBarHeight = adminBar.getBoundingClientRect().height;
+					menuStyle      = getComputedStyle( menu );
+					menuPaddingTop = parseInt( menuStyle.paddingTop ) + adminBarHeight;
+
+					closeButton.style.top = adminBarHeight + 'px';
+					menu.style.paddingTop = menuPaddingTop + 'px';
+				}
+			}
 
 			// Toggle mobile menu.
 			if ( toggleButton && menu ) {
 				closeButton.addEventListener(
 					'click',
-					function () {
+					function() {
 						toggleButton.click();
 					}
 				);
 
+				zakraFrontend.toggleMenu( toggleButton, menu, overlayWrapper, closeButton, toggleButton );
+
 				toggleButton.addEventListener(
 					'click',
-					function () {
-						this.classList.toggle( 'tg-mobile-toggle--opened' );
-						menu.classList.toggle( 'tg-mobile-navigation--opened' );
+					function() {
+						focusableSelectors = 'a, button, input[type="search"]';
+						focusableEl        = menu.querySelectorAll( focusableSelectors );
+						focusableEl        = Array.prototype.slice.call( focusableEl );
 
-						if ( overlayWrapper ) {
-							overlayWrapper.classList.toggle( 'overlay-show' );
-						}
+						firstEl = focusableEl[0];
+						lastEl  = focusableEl[focusableEl.length - 1];
 
-						// Mobile menu close button.
-						if ( ! menu.getElementsByClassName( 'tg-mobile-navigation-close' ).length ) {
-							// Append the close icon before menu.
-							menu.appendChild( closeButton );
-						}
+						// Set focus to first element.
+						setTimeout(
+							function() {
+								firstEl.focus();
+							},
+							100
+						);
 
-					}
-				);
-			}
-
-			// Close menu when clicked outside.
-			if ( overlayWrapper ) {
-				overlayWrapper.addEventListener(
-					'click',
-					function () {
-						this.classList.toggle( 'overlay-show' );
-						toggleButton.classList.toggle( 'tg-mobile-toggle--opened' );
-						menu.classList.toggle( 'tg-mobile-navigation--opened' );
+						// Loop focus while using tab and shift+tab key.
+						menu.addEventListener(
+							'keydown',
+							function( e ) {
+								if ( 'Tab' === e.key ) {
+									if ( e.shiftKey ) {
+										if ( document.activeElement === firstEl ) {
+											e.preventDefault();
+											lastEl.focus();
+										}
+									} else {
+										if ( document.activeElement === lastEl ) {
+											e.preventDefault();
+											firstEl.focus();
+										}
+									}
+								}
+							}
+						);
 					}
 				);
 			}
@@ -72,11 +147,11 @@ document.addEventListener(
 				for ( i = 0; i < submenuCount; i++ ) {
 
 					/* Add submenu toggle button */
-					subMenuButton = document.createElement( 'span' );
+					subMenuButton = document.createElement( 'button' );
 					subMenuButton.classList.add( 'tg-submenu-toggle' );
 
 					listItem = listItems[i];
-					listItem.appendChild( subMenuButton );
+					listItem.insertBefore( subMenuButton, listItem.childNodes[1] );
 
 					/* Select the subMenutoggle */
 					subMenuToggle = listItem.querySelector( '.tg-submenu-toggle' );
@@ -84,7 +159,7 @@ document.addEventListener(
 					if ( null !== subMenuToggle ) {
 						subMenuToggle.addEventListener(
 							'click',
-							function ( e ) {
+							function( e ) {
 								e.preventDefault();
 								this.parentNode.classList.toggle( 'submenu--show' );
 							}
@@ -95,10 +170,10 @@ document.addEventListener(
 						var link          = listItem.querySelector( 'a' ).getAttribute( 'href' );
 						var listItem_link = listItem.querySelector( 'a' );
 
-						if ( ! link || "#" === link ) {
+						if ( ! link || '#' === link ) {
 							listItem_link.addEventListener(
 								'click',
-								function ( e ) {
+								function( e ) {
 									menu.classList.toggle( 'tg-mobile-navigation--opened' );
 									this.parentNode.classList.toggle( 'submenu--show' );
 								}
@@ -121,7 +196,7 @@ document.addEventListener(
 				/* On scroll and show and hide button. */
 				window.addEventListener(
 					'scroll',
-					function () {
+					function() {
 						if ( 500 < window.scrollY ) {
 							scrollToTopButton.classList.add( 'tg-scroll-to-top--show' );
 						} else if ( 500 > window.scrollY ) {
@@ -135,14 +210,14 @@ document.addEventListener(
 				/* Scroll to top when clicked on button. */
 				scrollToTopButton.addEventListener(
 					'click',
-					function ( e ) {
+					function( e ) {
 						e.preventDefault();
 
 						/* Only scroll to top if we are not in top */
 						if ( 0 !== window.scrollY ) {
 							window.scrollTo(
 								{
-									top     : 0,
+									top: 0,
 									behavior: 'smooth'
 								}
 							);
@@ -154,8 +229,7 @@ document.addEventListener(
 
 		try {
 			mobileNavigation();
-		}
-		catch ( e ) {
+		} catch ( e ) {
 			console.log( e.message );
 		}
 
@@ -165,37 +239,40 @@ document.addEventListener(
 		 * Search form.
 		 */
 		(
-			function () {
+			function() {
 				var searchIcon, searchBox, getClosest;
 
-				searchIcon = document.querySelector( '.tg-menu-item-search .tg-icon-search' );
+				searchIcon = document.querySelector( '.tg-menu-item-search > a' );
 				searchBox  = document.getElementsByClassName( 'tg-menu-item-search' )[0];
 
-				getClosest = function ( elem, selector ) {
+				getClosest = function( elem, selector ) {
 
 					// Element.matches() polyfill
-					if ( !Element.prototype.matches ) {
+					if ( ! Element.prototype.matches ) {
 						Element.prototype.matches =
 							Element.prototype.matchesSelector ||
 							Element.prototype.mozMatchesSelector ||
 							Element.prototype.msMatchesSelector ||
 							Element.prototype.oMatchesSelector ||
 							Element.prototype.webkitMatchesSelector ||
-							function ( s ) {
-								var matches = (
-									    this.document || this.ownerDocument
-								    ).querySelectorAll( s ),
-								    i       = matches.length;
-								while ( -- i >= 0 && matches.item( i ) !== this ) {
+							function( s ) {
+								var matches = ( this.document || this.ownerDocument ).querySelectorAll( s ),
+									i       = matches.length;
+
+								while ( 0 <= --i && matches.item( i ) !== this ) { // TODO: Check and remove this empty loop
 								}
-								return i > - 1;
+
+								return -1 < i;
 							};
 					}
 
-					// Get the closest matching element
+					// Get the closest matching element.
 					for ( ; elem && elem !== document; elem = elem.parentNode ) {
-						if ( elem.matches( selector ) ) return elem;
+						if ( elem.matches( selector ) ) {
+							return elem;
+						}
 					}
+
 					return null;
 
 				};
@@ -217,6 +294,22 @@ document.addEventListener(
 					// Autofocus.
 					if ( searchBox.classList.contains( 'show-search' ) ) {
 						searchBox.getElementsByTagName( 'input' )[0].focus();
+
+						document.querySelector( '.tg-menu-item-search' ).addEventListener(
+							'keydown',
+							function( e ) {
+
+								if ( ! e.shiftKey && ( 'Tab' === e.key ) && ( document.activeElement === searchBox.getElementsByTagName( 'input' )[0] ) ) {
+									e.preventDefault();
+									searchIcon.focus();
+								}
+
+								if ( e.shiftKey && ( 'Tab' === e.key ) && ( document.activeElement === searchIcon ) && searchBox.classList.contains( 'show-search' ) ) {
+									e.preventDefault();
+									searchBox.getElementsByTagName( 'input' )[0].focus();
+								}
+							}
+						);
 					}
 				}
 
@@ -226,7 +319,7 @@ document.addEventListener(
 					// on search icon click.
 					searchIcon.addEventListener(
 						'click',
-						function ( ev ) {
+						function( ev ) {
 							ev.preventDefault();
 							showHideSearchForm();
 						}
@@ -235,21 +328,21 @@ document.addEventListener(
 					// on click outside form.
 					document.addEventListener(
 						'click',
-						function ( ev ) {
-							var closest = typeof (ev.target.closest);
+						function( ev ) {
+							var closest = typeof( ev.target.closest );
 
 							switch ( closest ) {
 								case 'undefined':
 									if ( getClosest( ev.target, '.tg-menu-item-search' ) || getClosest( ev.target, '.tg-icon-search' ) ) {
 										return;
 									}
-									break;
+								break;
 
 								default:
-									if ( ev.target.closest( '.tg-menu-item-search' ) || ev.target.closest( '.tg-icon-search' ) ) {
+									if ( ev.target.closest( '.tg-menu-item-search' ) || ev.target.closest( '.tg-icon-search' ) ) { // TODO: Unresolved function closest.
 										return;
 									}
-									break;
+								break;
 							}
 							showHideSearchForm( 'hide' );
 						}
@@ -258,13 +351,12 @@ document.addEventListener(
 					// on esc key.
 					document.addEventListener(
 						'keyup',
-						function ( e ) {
-							if ( searchBox.classList.contains( 'show-search' ) && 27 === e.keyCode ) {
+						function( e ) {
+							if ( searchBox.classList.contains( 'show-search' ) && 'Escape' === e.key ) {
 								showHideSearchForm( 'hide' );
 							}
 						}
 					);
-
 				}
 			}()
 		);
@@ -272,24 +364,22 @@ document.addEventListener(
 		/**
 		 * Transparent Header.
 		 */
-		var body = document.getElementsByTagName('body')[0],
-		    headerTop = body.getElementsByClassName('tg-site-header-top')[0];
+		var body      = document.getElementsByTagName( 'body' )[0],
+			headerTop = body.getElementsByClassName( 'tg-site-header-top' )[0];
 
 		function transparentHeader( body, headerTop ) {
 			var headerTopHt = headerTop.offsetHeight,
-			    main = document.getElementById( 'main' ),
-			    footer = document.getElementById( 'colophon' );
+				main        = document.getElementById( 'main' ),
+				footer      = document.getElementById( 'colophon' );
 
-			main.style.position = 'relative';
-			main.style.top = headerTopHt + 'px';
+			main.style.position   = 'relative';
+			main.style.top        = headerTopHt + 'px';
 			footer.style.position = 'relative';
-			footer.style.top = headerTopHt + 'px';
-
+			footer.style.top      = headerTopHt + 'px';
 		}
 
 		if ( body.classList.contains( 'has-transparent-header' ) && ( 'undefined' != typeof headerTop ) && headerTop.classList.contains( 'tg-site-header-top' ) ) {
 			transparentHeader( body, headerTop );
 		}
-
 	}
 );

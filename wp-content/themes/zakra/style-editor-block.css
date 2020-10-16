@@ -209,14 +209,14 @@
 =============================================*/
 .editor-styles-wrapper a,
 .editor-styles-wrapper .wp-block-file__textlink {
-	color: #16181a;
+	color: #269bd1;
 	text-decoration: none;
 	-webkit-transition: all 0.35s ease-in-out;
 	transition: all 0.35s ease-in-out;
 }
 
 .editor-styles-wrapper a:hover, .editor-styles-wrapper a:focus {
-	color: #269bd1;
+	color: #1e7ba6;
 }
 
 /*=============================================
