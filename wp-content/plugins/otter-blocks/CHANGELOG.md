@@ -1,3 +1,27 @@
+##### [Version 1.5.8](https://github.com/Codeinwp/otter-blocks/compare/v1.5.7...v1.5.8) (2020-09-14)
+
+- Add Lottie Animations Block.
+- Add Progress Bar Block.
+- Prevent old custom CSS from being cached.
+- Fix Slider in Section's Vertical Alignment on AMP.
+- Consensual Tracking Data.
+
+##### [Version 1.5.7](https://github.com/Codeinwp/otter-blocks/compare/v1.5.6...v1.5.7) (2020-08-12)
+
+- Fix Button Group Block borders
+- Fix Plugin Card failing with additional attributes
+- Fix permission callback missing in REST API Route
+
+##### [Version 1.5.6](https://github.com/Codeinwp/otter-blocks/compare/v1.5.5...v1.5.6) (2020-08-03)
+
+- Button Group Improvements
+- Fixed Caption field missing from Slider Block
+- Image management in Slider & Gallery Block
+- Fix issue with CSS inline loading twice
+- Fix Posts Block offset bug
+- Remove default font size from Posts Block
+- Improve Animation Picker
+
 ##### [Version 1.5.5](https://github.com/Codeinwp/otter-blocks/compare/v1.5.4...v1.5.5) (2020-06-22)
 
 - Dropped support for WordPress 5.4

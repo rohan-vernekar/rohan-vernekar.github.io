@@ -1,3 +1,38 @@
+#### [Version 2.10.0](https://github.com/Codeinwp/themeisle-companion/compare/v2.9.19...v2.10.0) (2020-10-09)
+
+- New Custom Fonts module
+
+##### [Version 2.9.19](https://github.com/Codeinwp/themeisle-companion/compare/v2.9.18...v2.9.19) (2020-09-25)
+
+* Fix elementor post grid jQuery dependencies
+
+##### [Version 2.9.18](https://github.com/Codeinwp/themeisle-companion/compare/v2.9.17...v2.9.18) (2020-09-21)
+
+- [Fix] Missing FontAwesome icons when Otter Blocks plugin was active
+
+##### [Version 2.9.17](https://github.com/Codeinwp/themeisle-companion/compare/v2.9.16...v2.9.17) (2020-09-02)
+
+- [Fix] Compatibility with WP 5.5
+- [Fix] Installing recommended plugins not working
+
+##### [Version 2.9.16](https://github.com/Codeinwp/themeisle-companion/compare/v2.9.15...v2.9.16) (2020-08-12)
+
+fix: add permission_callback for analytics module
+
+##### [Version 2.9.15](https://github.com/Codeinwp/themeisle-companion/compare/v2.9.14...v2.9.15) (2020-08-12)
+
+fix: notice showing up in the editor on the new WordPress version for users with WP_DEBUG turned on
+
+##### [Version 2.9.14](https://github.com/Codeinwp/themeisle-companion/compare/v2.9.13...v2.9.14) (2020-08-07)
+
+- Remove affiliate link
+
+##### [Version 2.9.13](https://github.com/Codeinwp/themeisle-companion/compare/v2.9.12...v2.9.13) (2020-08-04)
+
+- Removed Starter Sites library and import process used for the Neve theme
+- [Fix] Menu Icons module not working with WP 5.5
+- [Fix] Empty team member widget appearing on mobile in Hestia theme
+
 ##### [Version 2.9.12](https://github.com/Codeinwp/themeisle-companion/compare/v2.9.11...v2.9.12) (2020-07-20)
 
 - New checkbox field in the Contact widget for both Elementor and Beaver Builder
