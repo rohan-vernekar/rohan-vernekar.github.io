@@ -2,7 +2,7 @@
 layout: about
 title: about
 permalink: /
-subtitle: <a href='https://lrp.univ-grenoble-alpes.fr/fr'>Laboratoire Rhéologie Et Procédés (LRP)</a>. Grenoble, France.
+subtitle: <a href='https://lrp.univ-grenoble-alpes.fr/fr'>Laboratoire Rhéologie Et Procédés (LRP)</a>, Grenoble, France.
 
 profile:
   align: right
