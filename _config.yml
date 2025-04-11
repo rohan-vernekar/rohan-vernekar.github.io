@@ -313,7 +313,7 @@ display_categories: ["external-services"] # these categories will be displayed o
 
 scholar:
   last_name: [Vernekar]
-  first_name: [Rohan, Rohan R.]
+  first_name: [Rohan, Rohan R., Rohan Ranganath]
 
   style: apa
   locale: en
