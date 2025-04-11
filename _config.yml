@@ -645,10 +645,10 @@ jsonresume:
   - interests
   - languages
   - references
-  # - work
-  # - publications
-  # - projects
-  # - volunteer
-  # - awards
-  # - certificates
+  - work
+  - publications
+  - projects
+  - volunteer
+  - awards
+  - certificates
 
