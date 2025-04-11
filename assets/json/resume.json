@@ -3,7 +3,7 @@
     "name": "Rohan R. Vernekar",
     "label": "Post-doctoral researcher",
     "image": "assets/img/myEmailOrangeFr.png",
-    "email": "<img src='assets/img/myEmailOrangeFr.png' alt='email address' style='height:1em;'>",
+    "email": "<img src=\"assets/img/myEmailOrangeFr.png\" alt=\"email address\" style=\"height:1em;\">",
     "url": "https://rohan-vernekar.github.io",
     "summary": "Researcher in computational physics and engineering, investigating bio and micro flows, complex-fluids, fluid-structure interactions, and mesoscale and particle-based method development."
   },
