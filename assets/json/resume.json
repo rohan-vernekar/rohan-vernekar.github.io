@@ -10,9 +10,9 @@
   "education": [
     {
       "institution": "University of Edinburgh, Edinburgh, Scotland, UK",
-      "location": "Edinburgh, Scotland, UK",
+      "location": "Edinburgh, Scotland",
       "url": "https://www.ed.ac.uk/",
-      "area": "Microfluidics and cell separation modelling",
+      "area": "Numerical study of microfluidic effects and red blood cell dynamics in 'deterministic lateral displacement' geometries",
       "studyType": "PhD",
       "startDate": "2014-10-01",
       "endDate": "2019-07-01",
@@ -24,10 +24,10 @@
       "name": "Programming",
       "icon": "fa-solid fa-hashtag",
       "keywords": [
-        "c++",
-        "FORTRAN",
-        "python",
-        "julia"
+        "<code>c++</code>",
+        "<code>FORTRAN</code>",
+        "<code>python</code>",
+        "<code>julia</code>"
       ]
     },
     {
