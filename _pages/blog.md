@@ -7,7 +7,7 @@ nav_order: 1
 home: false
 published: false
 pagination:
-  enabled: true
+  enabled: false
   collection: posts
   permalink: /page/:num/
   per_page: 5
