@@ -390,9 +390,9 @@ external_links:
 # To hide the pages/collections from search (Ctrl+K)
 # -----------------------------------------------------------------------------
 
-# lunr:
-#   exclude:
-#     - _posts
+lunr:
+  exclude:
+    - _posts
 
 # -----------------------------------------------------------------------------
 # Responsive WebP Images
