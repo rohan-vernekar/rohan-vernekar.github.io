@@ -23,22 +23,12 @@
     {
       "name": "Programming",
       "icon": "fa-solid fa-hashtag",
-      "keywords": [
-        "<code>c++</code>",
-        "<code>FORTRAN</code>",
-        "<code>python</code>",
-        "<code>julia</code>"
-      ]
+      "keywords": ["<code>c++</code>", "<code>FORTRAN</code>", "<code>python</code>", "<code>julia</code>"]
     },
     {
       "name": "Numerical techniques",
       "icon": "fa-solid fa-hashtag",
-      "keywords": [
-        "lattice Boltzmann method",
-        "immersed boundary method",
-        "discrete element method",
-        "computational fluid dynamics"
-      ]
+      "keywords": ["lattice Boltzmann method", "immersed boundary method", "discrete element method", "computational fluid dynamics"]
     }
   ],
   "languages": [
@@ -57,13 +47,7 @@
     {
       "name": "Fluid mechanics",
       "icon": "fa-solid fa-tag",
-      "keywords": [
-        "biological flows",
-        "microfluidics",
-        "complex fluids",
-        "rheology",
-        "multiphase flows"
-      ]
+      "keywords": ["biological flows", "microfluidics", "complex fluids", "rheology", "multiphase flows"]
     }
   ],
   "references": [
