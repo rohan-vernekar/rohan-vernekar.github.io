@@ -9,7 +9,7 @@
   color: "#009f36"
 
 "Article":
-  color: "dodgerblue"   # Blue
+  color: "DarkBlue"   # Blue
   text-color: "#ffffff"  # Font color (White)
   
 "Review":
