@@ -13,7 +13,7 @@
   text-color: "#ffffff"  # Font color (White)
   
 "Review":
-  color: "#28a745"   # Green
+  color: "ForestGreen"   # Green
   text-color: "#ffffff"  # Font color (White)
 
 "PhD Thesis":
