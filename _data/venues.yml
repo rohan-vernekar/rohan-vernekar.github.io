@@ -7,3 +7,15 @@
 
 "Vision":
   color: "#009f36"
+
+"Article":
+color: "#007bff"   # Blue
+
+"Review":
+  color: "#28a745"   # Green
+
+"PhD Thesis":
+  color: "#ffc107"   # Yellow
+
+"Code":
+  color: "#17a2b8"   # Teal
