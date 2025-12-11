@@ -9,10 +9,12 @@
   color: "#009f36"
 
 "Article":
-color: "#007bff"   # Blue
-
+  color: "dodgerblue"   # Blue
+  text-color: "#ffffff"  # Font color (White)
+  
 "Review":
   color: "#28a745"   # Green
+  text-color: "#ffffff"  # Font color (White)
 
 "PhD Thesis":
   color: "#ffc107"   # Yellow
