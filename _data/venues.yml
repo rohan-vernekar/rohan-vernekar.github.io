@@ -9,15 +9,13 @@
   color: "#009f36"
 
 "Article":
-  color: "DarkBlue"   # Blue
-  text-color: "#ffffff"  # Font color (White)
+  color: "Navy"   # Blue
   
 "Review":
-  color: "ForestGreen"   # Green
-  text-color: "#ffffff"  # Font color (White)
+  color: "RoyalBlue"   # 
 
 "PhD Thesis":
-  color: "#ffc107"   # Yellow
+  color: "MediumSlateBlue"   # Yellow
 
 "Code":
-  color: "#17a2b8"   # Teal
+  color: "DodgerBlue"   # Teal

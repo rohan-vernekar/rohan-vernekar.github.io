@@ -143,3 +143,12 @@ html[data-theme-setting="light"] {
     display: block;
   }
 }
+/* White text for dark venues - highest specificity */
+.publications abbr.badge[style*="Navy"] div,
+.publications abbr.badge[style*="Navy"] a,
+.publications abbr.badge[style*="RoyalBlue"] div,
+.publications abbr.badge[style*="RoyalBlue"] a,
+.publications abbr.badge[style*="MediumSlateBlue"] div,
+.publications abbr.badge[style*="MediumSlateBlue"] a {
+  color: #ffffff !important;
+}
