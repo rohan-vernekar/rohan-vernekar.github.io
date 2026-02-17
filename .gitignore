@@ -10,4 +10,5 @@ assets/libs/
 node_modules/
 vendor
 .idea
+Gemfile.lock
 GEMINI.md
