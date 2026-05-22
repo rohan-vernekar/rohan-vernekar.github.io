@@ -1,11 +1,13 @@
 ---
 layout: page
-title: Tutorials
+permalink: /tutorials/
+title: tutorials
+description: Useful links and tutorials for publishing, writing and research.
 nav: false
 nav_order: 0  # Position after News/Publications (adjust number)
-permalink: /tutorials/
+published: true
 ---
-Useful links and tutorials for publishing, writing and research.
+
 
 # Other peoples websites
 

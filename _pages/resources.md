@@ -1,6 +1,6 @@
 ---
 layout: page
-title: Resources
+title: resources
 nav: true
 nav_order: 4  # Position after News/Publications (adjust number)
 nav_show: true
