@@ -2,8 +2,8 @@
   "basics": {
     "name": "Rohan R. Vernekar",
     "label": "Post-doctoral researcher",
-    "image": "assets/img/myEmailOrangeFr.png",
-    "email": "<img src=\"/assets/img/myEmailOrangeFr.png\" alt=\"email address\" style=\"height:1em;\">",
+    "image": "assets/img/myEmailOutlook.png",
+    "email": "<img src=\"/assets/img/myEmailOutlook.png\" alt=\"email address\" style=\"height:1em;\">",
     "url": "https://rohan-vernekar.github.io",
     "summary": "Researcher in computational physics and engineering, investigating bio and micro flows, complex-fluids, fluid-structure interactions, and mesoscale and particle-based method development."
   },
@@ -48,6 +48,11 @@
       "name": "Fluid mechanics",
       "icon": "fa-solid fa-tag",
       "keywords": ["biological flows", "microfluidics", "complex fluids", "rheology", "multiphase flows"]
+    },
+    {
+      "name": "Solid mechanics",
+      "icon": "fa-solid fa-tag",
+      "keywords": ["cellular deformation", "biomechanics", "elasticity"]
     }
   ],
   "references": [
